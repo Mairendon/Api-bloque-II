@@ -1,9 +1,13 @@
-const { DataTypes} = require('sequelize')
+const { DataTypes } = require('sequelize')
 const { sequelize } = require('../../database')
 
-const Clinica = sequelize.define (
-    'clinica', 
-    {   
+const Clinica = sequelize.define(
+    'clinica',
+    {
+        name: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         population: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -12,7 +16,12 @@ const Clinica = sequelize.define (
             type: DataTypes.STRING
         },
         number: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        phone: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
         },
     },
     { timestamps: false }
