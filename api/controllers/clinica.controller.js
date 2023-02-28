@@ -1,16 +1,19 @@
 const Clinica = require('../models/clinica.model');
 
-module.exports = { 
-    getClinica, 
-    getOneClinica, 
+module.exports = {
+    getClinicas,
+    getOneClinica,
     createClinica,
     updateClinica,
     deleteClinica
- };
+};
 
-async function getClinica(req, res) {
+async function getClinicas(req, res) {
     try {
-        const clinica = await Clinica.findAll({ paranoid: false })
+        const clinica = await Clinica.findAll({
+            where: req.query,
+            attributes: ["id", "name", "population", "phone",]
+        })
         if (clinica) {
             return res.status(200).json(clinica)
         } else {
@@ -23,9 +26,7 @@ async function getClinica(req, res) {
 
 async function getOneClinica(req, res) {
     try {
-        const clinica = await Clinica.findByPk(req.params[0], {
-			attributes: ["id", "name", "population", "phone", ]
-		})
+        const clinica = await Clinica.findByPk(req.params.id)
         if (clinica) {
             return res.status(200).json(clinica)
         } else {
@@ -49,7 +50,7 @@ async function updateClinica(req, res) {
     try {
         const [clinicaExist, clinica] = await Clinica.update(req.body, {
             returning: true,
-            where: { id: req.params.id}
+            where: { id: req.params.id }
         })
         if (clinicaExist !== 0) {
             return res.status(200).json({ message: 'clinica update', clinica: clinica })

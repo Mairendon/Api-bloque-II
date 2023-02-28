@@ -1,9 +1,9 @@
 const router = require('express').Router()
 
-const { getClinica, getOneClinica, createClinica, updateClinica, deleteClinica } = require('../controllers/clinica.controller')
+const { getClinicas, getOneClinica, createClinica, updateClinica, deleteClinica } = require('../controllers/clinica.controller')
 
-router.get('/', getClinica)
-router.get('/:id?', getOneClinica)
+router.get('/', getClinicas)
+router.get('/:id', getOneClinica) //ver como se hace el comando de solicitar
 
 router.post('/', createClinica)
 router.post('/:id', updateClinica)
