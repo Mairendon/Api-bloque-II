@@ -9,4 +9,5 @@ router.post('/', createClinica)
 router.post('/:id', updateClinica)
 
 router.delete('/:id', deleteClinica)
+
 module.exports = router

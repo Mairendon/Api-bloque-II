@@ -17,7 +17,7 @@ async function getClinicas(req, res) {
         if (clinica) {
             return res.status(200).json(clinica)
         } else {
-            return res.status(404).send('No clinica found')
+            return res.status(404).send('Clinica not found')
         }
     } catch (error) {
         res.status(500).send(error.message)
