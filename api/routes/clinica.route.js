@@ -1,8 +1,9 @@
 const router = require('express').Router()
 
-const {} = require('../controllers/clinica.controller')
+const { getClinica, getOneClinica, createClinica } = require('../controllers/clinica.controller')
 
-//router.get('/', getClinica)
+router.get('/', getClinica)
+router.get('/:id', getOneClinica)
 
-
+router.post('/', createClinica)
 module.exports = router

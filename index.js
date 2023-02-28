@@ -3,7 +3,7 @@ process.stdout.write('\x1B[2J\x1B[0f')
 require('dotenv').config()
 
 const { checkConnection, syncModels, } = require('./database/index')
-// const addRelations = require('./database/relations')
+const addRelations = require('./database/relations')
 
 const express = require('express');
 const morgan = require('morgan');
@@ -13,7 +13,7 @@ const cors = require('cors');
 
 async function check() {
     await checkConnection();
-    //addRelations()
+    addRelations()
     await syncModels();
 };
 

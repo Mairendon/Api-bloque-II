@@ -2,6 +2,6 @@ const router = require('express').Router()
 
 const clinicaRouter = require('./clinica.route')
 
-router.use('/clinica', clinicaRouter)
+router.use('/clinicas', clinicaRouter)
 
 module.exports = router

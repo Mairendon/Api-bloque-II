@@ -3,7 +3,11 @@ const { sequelize } = require('../../database')
 
 const Clinica = sequelize.define (
     'clinica', 
-    {
+    {   
+        population: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         street: {
             type: DataTypes.STRING
         },
