@@ -12,7 +12,7 @@ async function getSpecialtys(req, res) {
     try {
         const specialty = await Specialty.findAll({
             where: req.query,
-            attributes: ["id", "tratamiento", "paciente", "doctor"]
+            attributes: ["id", "tratamiento", "paciente", "dentista"]
         })
         if (specialty) {
             return res.status(200).json(specialty)

@@ -17,3 +17,4 @@ router.post('/:id', updateDoctor);
 router.delete('/:id', deleteDoctor);
 
 module.exports = router;
+

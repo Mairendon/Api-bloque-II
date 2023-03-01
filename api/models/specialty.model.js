@@ -12,7 +12,7 @@ const Specialty = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        doctor: {
+        dentista: {
             type: DataTypes.STRING,
             allowNull: false,
         },

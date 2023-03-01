@@ -20,7 +20,7 @@ const Paciente = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        birthDAte: {
+        birthDate: {
             type: DataTypes.DATE,
             allowNull: true,
         },

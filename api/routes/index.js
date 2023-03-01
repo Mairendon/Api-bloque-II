@@ -8,9 +8,9 @@ const pagoPacienteRouter = require('./pagoP.route')
 
 
 router.use('/clinicas', clinicaRouter)
-router.use('/doctor', doctorRouter)
+router.use('/doctors', doctorRouter)
 router.use('/pacientes', pacienteRouter)
-router.use('/specialty', specialtyRouter)
+router.use('/specialties', specialtyRouter)
 router.use('/pagos', pagoPacienteRouter)
 
 
