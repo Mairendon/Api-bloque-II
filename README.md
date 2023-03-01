@@ -1,4 +1,4 @@
-# Project Support
+# Project DataBase
 ### Introduction
 Project Support is an open source platform that enable users share causes they're passionate about and actively involved with with the hopes of connecting with other users equally interested in working with them on the given cause.
 ### Project Support Features
