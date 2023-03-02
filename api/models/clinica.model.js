@@ -23,6 +23,18 @@ const Clinica = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        ingresos: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        gastos: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        tratamientosPopu: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     },
     { timestamps: false }
 )

@@ -12,7 +12,15 @@ const Paciente = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        birthDate: {
+            type: DataTypes.DATE,
+            allowNull: true,
+        },
         dni: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        genero: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -20,9 +28,25 @@ const Paciente = sequelize.define(
             type: DataTypes.INTEGER,
             allowNull: false,
         },
-        birthDate: {
-            type: DataTypes.DATE,
-            allowNull: true,
+        address: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        mail: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        historialMedico: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        historialDental: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        tratamientosDone: {
+            type: DataTypes.STRING,
+            allowNull: false,
         },
         nextAppointment: {
             type: DataTypes.DATE,
