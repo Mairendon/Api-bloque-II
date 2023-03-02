@@ -15,7 +15,7 @@ router.get('/:id', getOnePaciente)
 router.get('/doctor/:id', getPacDoc)
 
 router.post('/', createPaciente)
-router.post('/:id', updatePaciente)
+router.put('/:id', updatePaciente)
 
 router.delete('/:id', deletePaciente)
 

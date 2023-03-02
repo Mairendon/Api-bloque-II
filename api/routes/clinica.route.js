@@ -12,7 +12,7 @@ router.get('/', getClinicas)
 router.get('/:id', getOneClinica) //ver como se hace el comando de solicitar
 
 router.post('/', createClinica)
-router.post('/:id', updateClinica)
+router.put('/:id', updateClinica)
 
 router.delete('/:id', deleteClinica)
 

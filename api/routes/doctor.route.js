@@ -12,7 +12,7 @@ router.get('/', getDoctors);
 router.get('/:id', getOneDoctor);
 
 router.post('/', createDoctor);
-router.post('/:id', updateDoctor);
+router.put('/:id', updateDoctor);
 
 router.delete('/:id', deleteDoctor);
 

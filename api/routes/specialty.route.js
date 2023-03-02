@@ -12,7 +12,7 @@ router.get('/', getSpecialtys)
 router.get('/:id', getOneSpecialty)
 
 router.post('/', createSpecialty)
-router.post('/:id', updateSpecialty)
+router.put('/:id', updateSpecialty)
 
 router.delete('/:id', deleteSpecialty)
 
