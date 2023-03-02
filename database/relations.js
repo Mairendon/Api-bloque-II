@@ -2,10 +2,24 @@ const Clinica = require('../api/models/clinica.model')
 const Doctor = require('../api/models/doctor.model');
 const Paciente = require('../api/models/paciente.model')
 const Specialty = require('../api/models/specialty.model');
-const Pago = require('../api/models/pagoP.model')
+const Pago = require('../api/models/pagoP.model');
+const Cita = require('../api/models/citas.model');
 
 function addRelations() {
     try {
+        //relations cita
+        Cita.hasOne(Paciente)
+        Paciente.belongsTo(Cita)
+
+        Cita.hasOne(Specialty)
+        Specialty.belongsTo(Cita)
+
+        Cita.hasOne(Doctor)
+        Doctor.belongsTo(Cita)
+
+        Cita.hasOne(Clinica)
+        Clinica.belongsTo(Cita)
+        
         //Relation one to many
         Doctor.hasMany(Paciente)
         Paciente.belongsTo(Doctor)
@@ -16,10 +30,10 @@ function addRelations() {
         Clinica.hasMany(Paciente)
         Paciente.belongsTo(Clinica)
 
+        //relation one to one
+
         Clinica.hasOne(Pago)
         Pago.belongsTo(Clinica)
-
-        //relation one to one
 
         Doctor.hasOne(Specialty)
         Specialty.belongsTo(Doctor)

@@ -1,6 +1,12 @@
 const router = require('express').Router()
 
-const { getClinicas, getOneClinica, createClinica, updateClinica, deleteClinica } = require('../controllers/clinica.controller')
+const {
+    getClinicas,
+    getOneClinica,
+    createClinica,
+    updateClinica,
+    deleteClinica
+} = require('../controllers/clinica.controller')
 
 router.get('/', getClinicas)
 router.get('/:id', getOneClinica) //ver como se hace el comando de solicitar
