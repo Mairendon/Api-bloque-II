@@ -1,6 +1,19 @@
 const router = require('express').Router()
 
-const {} = require('../controllers/citas.controller')
+const {
+    getCitas,
+    getOneCita,
+    createCita,
+    updateCita,
+    deleteCita
+} = require('../controllers/citas.controller'); 
 
+//router.get('/', getCitas)
+//router.get('/:id', getOneCita)
+
+//router.post('/', createCita)
+//router.post('/:id', updateCita)
+
+router.delete('/:id', deleteCita)
 
 module.exports = router
