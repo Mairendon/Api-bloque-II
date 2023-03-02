@@ -1,6 +1,6 @@
 const Cita = require('../models/citas.model')
 
-module.export = {
+module.exports = {
  getCitas,
  getOneCita,
  createCita,
