@@ -8,6 +8,14 @@ const Pago = sequelize.define(
             type: DataTypes.DECIMAL,
             allowNull: true,
         },
+        date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        metodoPago: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         pagoMensual: {
             type: DataTypes.DECIMAL,
             allowNull: false,

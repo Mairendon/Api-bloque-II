@@ -8,6 +8,14 @@ const Specialty = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        description: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        duration: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         paciente: {
             type: DataTypes.STRING,
             allowNull: false,
