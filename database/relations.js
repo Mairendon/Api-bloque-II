@@ -7,28 +7,28 @@ const Cita = require('../api/models/citas.model');
 
 function addRelations() {
     try {
-        //relations cita
-        //Cita.hasOne(Paciente)
-        //Paciente.belongsTo(Cita)
-
-        // 
-
-        // Cita.hasOne(Clinica)
-        // Clinica.belongsTo(Cita) MANY
-
         //Relation one to many
         Doctor.hasMany(Paciente)
         Paciente.belongsTo(Doctor)
 
         Doctor.hasMany(Cita)
         Cita.belongsTo(Doctor)
-        
+
         Clinica.hasMany(Doctor)
         Doctor.belongsTo(Clinica)
 
         Clinica.hasMany(Paciente)
         Paciente.belongsTo(Clinica)
 
+        Paciente.hasMany(Cita)
+        Cita.belongsTo(Paciente)
+
+        Clinica.hasMany(Cita)
+        Cita.belongsTo(Clinica)
+
+        Specialty.hasMany(Cita)
+        Cita.belongsTo(Specialty)
+        
         //relation one to one
 
         Clinica.hasOne(Pago)
