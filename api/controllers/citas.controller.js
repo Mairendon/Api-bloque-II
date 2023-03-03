@@ -1,11 +1,16 @@
 const Cita = require('../models/citas.model')
+const Doctor = require('../models/doctor.model')
+const Paciente = require('../models/paciente.model')
+const Specialty = require('../models/specialty.model')
+const Clinica = require('../models/clinica.model')
 
 module.exports = {
- getCitas,
- getOneCita,
- createCita,
- updateCita,
- deleteCita
+    getCitas,
+    getOneCita,
+    createCita,
+    updateCita,
+    deleteCita,
+    removeConnectionCitaDoc
 };
 
 async function getCitas(req, res) {
@@ -77,3 +82,20 @@ async function deleteCita(req, res) {
         return res.status(500).send(error.message)
     }
 };
+
+async function removeConnectionCitaDoc(req, res) {
+    try {
+        const doctor = Doctor.findByPk(req.params.doctorId);
+        const cita = Cita.findByPk(req.params.citaId);
+
+        await doctor.removeCita(cita)
+        await cita.removeDoctor(doctor)
+        if (cita) {
+            return res.status(200).json('DoctorCita relationship remove')
+        } else {
+            return res.status(404).send('Citas not found')
+        }
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
