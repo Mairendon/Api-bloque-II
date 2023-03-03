@@ -88,7 +88,8 @@ async function removeConnectionCitaDoc(req, res) {
         const doctor = Doctor.findByPk(req.params.doctorId);
         const cita = Cita.findByPk(req.params.citaId);
 
-        await doctor.removeCita(cita)
+       // await doctor.removeCita(cita) 
+       // no hace falta llamar a las dos porque sólo hay info en una tabla
         await cita.removeDoctor(doctor)
         if (cita) {
             return res.status(200).json('DoctorCita relationship remove')
