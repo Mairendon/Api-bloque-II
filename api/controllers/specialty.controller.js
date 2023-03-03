@@ -12,7 +12,7 @@ async function getSpecialtys(req, res) {
     try {
         const specialty = await Specialty.findAll({
             where: req.query,
-            attributes: ["id", "tratamiento", "paciente", "dentista"]
+            attributes: ["id", "tratamiento" ]
         })
         if (specialty) {
             return res.status(200).json(specialty)
@@ -26,13 +26,13 @@ async function getSpecialtys(req, res) {
 
 async function getOneSpecialty(req, res) {
     try {
-        const specialty = await Specialty.findByPK(req.params.id)
+        const specialty = await Specialty.findByPk(req.params.id)
         if (specialty) {
             return res.status(200).json(specialty)
         } else {
             return res.status(404).send('Specialty not found')
         }
-    } catch (erro) {
+    } catch (error) {
         res.status(500).send(error.message)
     }
 };
@@ -44,14 +44,14 @@ async function createSpecialty(req, res) {
             message: 'Specialty created',
             specialty: specialty
         })
-    } catch (erro) {
+    } catch (error) {
         res.status(500).send(error.message)
     }
 };
 
 async function updateSpecialty(req, res) {
     try {
-        const [specialtyExist, specialty] = await Specialty.update(re.body, {
+        const [specialtyExist, specialty] = await Specialty.update(req.body, {
             returning: true,
             where: { id: req.params.id }
         })

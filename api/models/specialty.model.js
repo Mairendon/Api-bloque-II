@@ -16,14 +16,14 @@ const Specialty = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        paciente: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        dentista: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
+        // paciente: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
+        // dentista: {
+        //     type: DataTypes.STRING,
+        //     allowNull: false,
+        // },
     },
     { timestamps: false }
 );
