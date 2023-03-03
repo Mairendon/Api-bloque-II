@@ -13,7 +13,7 @@ async function getPagos(req, res) {
     try {
         const pagoP = await Pago.findAll({
             where: req.query,
-            attributes: ["pagoTotal", "pagoMensual", "pagoPendiente",]
+            attributes: ["Total", "pagoMensual", "deuda", "metodoPago"]
         })
         if (pagoP) {
             return res.status(200).json(pagoP)
@@ -41,7 +41,7 @@ async function getOnePago(req, res) {
 async function createPago(req, res) {
     try {
         const pago = await Pago.create(req.body)
-        return res.status(200).json({ message: 'Pago create', pago: pagp })
+        return res.status(200).json({ message: 'Pago create', pago: pago })
     }catch (error) {
         res.status(500).send(error.message)
     }

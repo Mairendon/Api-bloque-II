@@ -26,7 +26,7 @@ async function getDoctors(req, res) {
 
 async function getOneDoctor(req, res) {
     try {
-        const doctor = await Doctor.findByOK(req.params.id)
+        const doctor = await Doctor.findByPk(req.params.id)
         if (doctor) {
             return res.status(200).json(doctor)
         } else {
