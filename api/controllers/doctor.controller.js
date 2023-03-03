@@ -1,11 +1,13 @@
 const Doctor = require('../models/doctor.model');
+const Clinica = require('../models/clinica.model');
 
 module.exports = {
     getDoctors,
     getOneDoctor,
     createDoctor,
     updateDoctor,
-    deleteDoctor
+    deleteDoctor,
+    removeConnectionDocClinica
 };
 
 async function getDoctors(req, res) {
@@ -81,5 +83,21 @@ async function deleteDoctor(req, res) {
         }
     } catch (error) {
         return res.status(500).send(error.message)
+    }
+};
+
+async function removeConnectionDocClinica(req, res) {
+    try {
+        const clinica = Clinica.findByPk(req.params.clinicaId);
+        const doctor = Doctor.findByPk(req.params.doctorId);
+
+        await doctor.removeClinica(clinica)
+        if (doctor) {
+            return res.status(200).json('Doctor-Clinica relationship removed');
+        } else {
+            return res.status(404).send('Doctor not found');
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
     }
 };

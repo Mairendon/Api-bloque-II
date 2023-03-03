@@ -1,5 +1,7 @@
-const Clinica = require('../models/clinica.model');
 const Pago = require('../models/pagoP.model');
+const Clinica = require('../models/clinica.model');
+const Paciente = require('../models/paciente.model');
+const Specialty = require('../models/specialty.model');
 
 module.exports = {
     getPagos,
@@ -7,6 +9,9 @@ module.exports = {
     createPago,
     updatePago,
     deletePago,
+    removeConnectionPagoClinica,
+    removeConnectionPagoPaciente,
+    removeConnectionPagoSpecialty,
 }
 
 async function getPagos(req, res) {
@@ -76,3 +81,51 @@ async function deletePago(req, res) {
         return res.status(500).send(error.message)
     }
 }
+
+async function removeConnectionPagoClinica(req, res) {
+    try {
+        const clinica = Clinica.findByPk(req.params.clinicaId);
+        const pago = Pago.findByPk(req.params.pagoId);
+
+        await pago.removeClinica(clinica)
+        if (pago) {
+            return res.status(200).json('Pago-Clinica relationship removed');
+        } else {
+            return res.status(404).send('Pago-Clinica not found');
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
+async function removeConnectionPagoPaciente(req, res) {
+    try {
+        const paciente = Paciente.findByPk(req.params.pacienteId);
+        const pago = Pago.findByPk(req.params.pagoId);
+
+        await pago.removePaciente(paciente)
+        if (pago) {
+            return res.status(200).json('Pago-Paciente relationship removed');
+        } else {
+            return res.status(404).send('Pago-Paciente not found');
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
+
+async function removeConnectionPagoSpecialty(req, res) {
+    try {
+        const specialty = Specialty.findByPk(req.params.specialtyId);
+        const pago = Pago.findByPk(req.params.pagoId);
+
+        await pago.removeSpecialty(specialty)
+        if (pago) {
+            return res.status(200).json('Pago-Specialty relationship removed');
+        } else {
+            return res.status(404).send('Pago-Specialty not found');
+        }
+    } catch (error) {
+        return res.status(500).send(error.message);
+    }
+};
