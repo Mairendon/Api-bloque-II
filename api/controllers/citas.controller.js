@@ -13,7 +13,8 @@ module.exports = {
     removeConnectionCitaDoc,
     removeConnectionCitaPac,
     removeConnectionCitaClinica,
-    removeConnectionCitaSpecialty
+    removeConnectionCitaSpecialty,
+
 };
 
 async function getCitas(req, res) {
@@ -36,6 +37,7 @@ async function getOneCita(req, res) {
     try {
         const cita = await Cita.findByPk(req.params.id)
         if (cita) {
+          
             return res.status(200).json(cita)
         } else {
             return res.status(404).send('Cita not found')
@@ -61,6 +63,7 @@ async function updateCita(req, res) {
             where: { id: req.params.id }
         })
         if (citaExist !== 0) {
+
             return res.status(200).json({ message: 'cita update', cita: cita })
         } else {
             return res.status(404).send('Cita not found')
@@ -112,8 +115,8 @@ async function removeConnectionCitaPac(req, res) {
 
         if (!cita) {
             return res.status(404).send('Citas not found')
-        } else {
 
+        } else {
             await paciente.removeCita(cita)
             return res.status(200).json('PacienteCita relationship remove')
         }
@@ -129,8 +132,8 @@ async function removeConnectionCitaClinica(req, res) {
 
         if (!cita) {
             return res.status(404).send('Citas not found')
-        } else {
 
+        } else {
             await clinica.removeCita(cita)
             return res.status(200).json('ClinicaCita relationship remove')
         }
@@ -155,3 +158,20 @@ async function removeConnectionCitaSpecialty(req, res) {
         return res.status(500).send(error.message)
     }
 };
+
+//add citas cosas
+async function addCitasDoc(req, res) {
+    try {
+        const doctor = await Doctor.findByPk(req.params.doctorId);
+        const cita = await Cita.findByPk(req.params.citaId);
+
+        if (!cita) {
+            return res.status(404).send('Citas not found')
+        } else {
+            await doctor.addCita(cita)
+            return res.status(200).json({ message: 'Doctor Added', cita: cita, doctor: [doctor.name] })
+        }
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}

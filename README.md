@@ -14,6 +14,14 @@ Project Support is an open source platform that enable users share causes they'r
 ### Usage
 * Run npm start:dev to start the application.
 * Connect to the API using Postman on port 3000.
+### API Endpoints: Cita
+| HTTP Verbs | Endpoints | Action |
+| --- | --- | --- |
+| POST | /api/citas | To create a new citas |
+| POST | /api/citas/:id | To update citas |
+| GET | /api/citas | To retrieve all citas on the platform |
+| GET | /api/citas/:Id | To retrieve details of a single citas |
+| DELETE | /api/citas/:id | To delete a single citas |
 ### API Endpoints: Clinica
 | HTTP Verbs | Endpoints | Action |
 | --- | --- | --- |
@@ -54,6 +62,7 @@ Project Support is an open source platform that enable users share causes they'r
 | GET | /api/specialty | To retrieve all specialty on the platform |
 | GET | /api/specialty/:Id | To retrieve details of a single specialty |
 | DELETE | /api/specialty/:id | To delete a single specialty |
+
 
 ### Technologies Used
 * [NodeJS](https://nodejs.org/) This is a cross-platform runtime environment built on Chrome's V8 JavaScript engine used in running JavaScript codes on the server. It allows for installation and managing of dependencies and communication with databases.
