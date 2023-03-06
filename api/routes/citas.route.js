@@ -25,7 +25,6 @@ router.delete('/:id', deleteCita)
 router.delete('/:citaId/doctor/:doctorId', removeConnectionCitaDoc)
 router.delete('/:citaId/paciente/:pacienteId', removeConnectionCitaPac)
 router.delete('/:citaId/clinica/:clinicaId', removeConnectionCitaClinica)
-router.delete('/:citaId/paciente/:pacienteId', removeConnectionCitaPac)
 router.delete('/:citaId/specialty/:specialtyId', removeConnectionCitaSpecialty)
 
 

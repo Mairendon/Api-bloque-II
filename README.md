@@ -6,7 +6,7 @@ Project Support is an open source platform that enable users share causes they'r
 * Public (non-authenticated) users can access all causes on the platform
 * Authenticated users can access all causes as well as create a new cause, edit their created cause and also delete what they've created.
 ### Installation Guide
-* Clone this repository [here](https://github.com/blackdevelopa/ProjectSupport.git).
+* Clone this repository [here](https://github.com/Mairendon/Api-bloque-II.git).
 * The develop branch is the most stable branch at any given time, ensure you're working from it.
 * Run npm install to install all dependencies
 * You can either work with the default mLab database or use your locally installed MongoDB. Do configure to your choice in the application entry file.
