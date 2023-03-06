@@ -26,7 +26,6 @@ router.get('/doctor/:doctorId', getCitaDoc)
 
 router.post('/', createCita)
 
-
 router.put('/:id', updateCita)
 
 router.delete('/:id', deleteCita)

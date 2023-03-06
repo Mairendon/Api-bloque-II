@@ -15,7 +15,7 @@ module.exports = {
     removeConnectionPacienteDoc,
     removeConnectionPacienteClinica,
     removeConnectionPacienteSpecialty,
-    // addConnectionPacienteSpecialty
+    addConnectionPacienteSpecialty
 
 }
 
@@ -114,7 +114,7 @@ async function getPacClc(req, res) {
         if (!clinica) {
             return res.status(404).send('Clinica not found')
         } else {
-            return res.status(200).json(clinica.name)
+            return res.status(200).json(clinica)
         }
 
     } catch (error) {
@@ -185,14 +185,15 @@ async function removeConnectionPacienteSpecialty(req, res) {
     }
 };
 
-/*async function addConnectionPacienteSpecialty(req, res) {
+async function addConnectionPacienteSpecialty(req, res) {
     try {
         const paciente = await Paciente.findByPk(req.params.pacienteId);
-        const specialty = await Specialty.findByPk(req.params.SpecialtyId);
-        
+        const specialty = await Specialty.findByPk(req.params.specialtyId);
         await paciente.addSpecialty(specialty)
-        return res.status(200).json({ message: 'Paciente added', paciente: paciente})
+      const specialties =  await paciente.getSpecialties()
+     //   await specialty.addPaciente(paciente)
+        return res.status(200).json(specialties)
     } catch (error) {
         return res.status(500).send(error.message)
     }
-}*/
+}
