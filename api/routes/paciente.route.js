@@ -12,7 +12,7 @@ const {
     removeConnectionPacienteSpecialty,
     getPacClc,
     getPacSpecialty,
-    //addConnectionPacienteSpecialty
+    addConnectionPacienteSpecialty
 } = require('../controllers/paciente.controller')
 
 
@@ -23,7 +23,7 @@ router.get('/clinica/:clinicaId', getPacClc)
 router.get('/specialty/:specialtyId', getPacSpecialty)
 
 router.post('/', createPaciente)
-//router.post('/:pacienteId/specialty/:specialtyId', addConnectionPacienteSpecialty)
+router.post('/:pacienteId/specialty/:specialtyId', addConnectionPacienteSpecialty)
 
 router.put('/:id', updatePaciente)
 
