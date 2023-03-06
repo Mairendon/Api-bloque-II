@@ -10,6 +10,10 @@ module.exports = {
     createCita,
     updateCita,
     deleteCita,
+    getCitaDoc,
+    getCitaPaciente,
+    getCitaSpecialty,
+    getCitaClinica,
     removeConnectionCitaDoc,
     removeConnectionCitaPac,
     removeConnectionCitaClinica,
@@ -37,7 +41,7 @@ async function getOneCita(req, res) {
     try {
         const cita = await Cita.findByPk(req.params.id)
         if (cita) {
-          
+
             return res.status(200).json(cita)
         } else {
             return res.status(404).send('Cita not found')
@@ -47,6 +51,65 @@ async function getOneCita(req, res) {
     }
 };
 
+async function getCitaDoc(req, res) {
+    try {
+        const doctor = await Doctor.findByPk(req.params.doctorId, {
+            include: [{ model: Cita }]
+        })
+        if (!doctor) {
+            return res.status(404).send('Cita not found')
+        } else {
+            return res.status(200).json(doctor)
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+} 
+
+async function getCitaPaciente(req, res) {
+    try {
+        const paciente = await Paciente.findByPk(req.params.pacienteId, {
+            include: [{ model: Cita }]
+        })
+        if (!paciente) {
+            return res.status(404).send('Cita not found')
+        } else {
+            return res.status(200).json(paciente)
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
+async function getCitaSpecialty(req, res) {
+    try {
+        const specialty = await Specialty.findByPk(req.params.specialtyId, {
+            include: [{ model: Cita }]
+        })
+        if (!specialty) {
+            return res.status(404).send('Cita not found')
+        } else {
+            return res.status(200).json(specialty)
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
+
+async function getCitaClinica(req, res) {
+    try {
+        const clinica = await Clinica.findByPk(req.params.clinicaId, {
+            include: [{ model: Cita }]
+        })
+        if (!clinica) {
+            return res.status(404).send('Cita not found')
+        } else {
+            return res.status(200).json(clinica)
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
 async function createCita(req, res) {
     try {
         const cita = await Cita.create(req.body)
@@ -101,7 +164,7 @@ async function removeConnectionCitaDoc(req, res) {
             await doctor.removeCita(cita)
             // no hace falta llamar a las dos porque sólo hay info en una tabla
             //eso es una sentencia lógica, sacar el paciente de la cita, de la otra manera no funciona porque las citas no estan en doctor.
-            return res.status(200).json('DoctorCita relationship remove')
+            return res.status(200).json('Doctor-Cita relationship remove')
         }
     } catch (error) {
         return res.status(500).send(error.message)
@@ -118,7 +181,7 @@ async function removeConnectionCitaPac(req, res) {
 
         } else {
             await paciente.removeCita(cita)
-            return res.status(200).json('PacienteCita relationship remove')
+            return res.status(200).json('Paciente-Cita relationship remove')
         }
     } catch (error) {
         return res.status(500).send(error.message)
@@ -135,7 +198,7 @@ async function removeConnectionCitaClinica(req, res) {
 
         } else {
             await clinica.removeCita(cita)
-            return res.status(200).json('ClinicaCita relationship remove')
+            return res.status(200).json('Clinica-Cita relationship remove')
         }
     } catch (error) {
         return res.status(500).send(error.message)
@@ -152,7 +215,7 @@ async function removeConnectionCitaSpecialty(req, res) {
 
         } else {
             await specialty.removeCita(cita)
-            return res.status(200).json('SpecialtyCita relationship remove')
+            return res.status(200).json('Specialty-Cita relationship remove')
         }
     } catch (error) {
         return res.status(500).send(error.message)

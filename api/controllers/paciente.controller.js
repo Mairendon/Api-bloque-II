@@ -10,10 +10,12 @@ module.exports = {
     updatePaciente,
     deletePaciente,
     getPacDoc,
+    getPacClc,
+    getPacSpecialty,
     removeConnectionPacienteDoc,
     removeConnectionPacienteClinica,
     removeConnectionPacienteSpecialty,
-   // addConnectionPacienteSpecialty
+    // addConnectionPacienteSpecialty
 
 }
 
@@ -88,19 +90,52 @@ async function deletePaciente(req, res) {
 async function getPacDoc(req, res) { //JP non DJ
     try {
         const doctor = await Doctor.findByPk(req.params.doctorId, {
-            include: [{ model: Paciente,
-                 attributes: ["name", "lastName"] }]
+            include: [{
+                model: Paciente,
+                attributes: ["name", "lastName", "id"]
+            }]
         })
         if (!doctor) {
             return res.status(404).send('doc not found')
         } else {
-           // const pacientes = await doctor.getPacientes(pacientes)
-            return res.status(200).json( doctor)
+            // const pacientes = await doctor.getPacientes(pacientes)
+            return res.status(200).json(doctor)
         }
     } catch (error) {
         return res.status(500).send(`Error retrieving doctor's patients: ${error.message}`)
     }
 };
+
+async function getPacClc(req, res) {
+    try {
+        const clinica = await Clinica.findByPk(req.params.clinicaId, {
+            include: [{ model: Paciente, attributes: ["name", "lastName", "id"] }]
+        })
+        if (!clinica) {
+            return res.status(404).send('Clinica not found')
+        } else {
+            return res.status(200).json(clinica.name)
+        }
+
+    } catch (error) {
+        return res.status(500).send(`Error retrieving doctor's patients: ${error.message}`)
+    }
+};
+
+async function getPacSpecialty(req, res) {
+    try {
+        const specialty = await Specialty.findByPk(req.params.specialtyId, {
+            include: [{ model: Paciente, attributes: ["name", "lastName", "id"] }]
+        })
+        if (!specialty) {
+            return res.status(404).send('Specialty not found')
+        } else {
+            return res.status(200).json(specialty)
+        }
+    } catch (error) {
+        return res.status(500).send(`Error retrieving doctor's patients: ${error.message}`)
+    }
+}
 
 async function removeConnectionPacienteDoc(req, res) {
     try {
@@ -111,7 +146,7 @@ async function removeConnectionPacienteDoc(req, res) {
             return res.status(404).send('Paciente not found')
         } else {
             await doctor.removePaciente(paciente)
-            return res.status(200).json('PacienteDoctor relationship removed')
+            return res.status(200).json('Paciente-Doctor relationship removed')
         }
     } catch (error) {
         return res.status(500).send(error.message)
@@ -127,7 +162,7 @@ async function removeConnectionPacienteClinica(req, res) {
             return res.status(404).send('Paciente not found')
         } else {
             await clinica.removePaciente(paciente)
-            return res.status(200).json('PacienteClinica relationship removed')
+            return res.status(200).json('Paciente-Clinica relationship removed')
         }
     } catch (error) {
         return res.status(500).send(error.message)
@@ -143,7 +178,7 @@ async function removeConnectionPacienteSpecialty(req, res) {
         } else {
             await specialty.removePaciente(paciente)
             await paciente.removeSpecialty(specialty)
-            return res.status(200).json('PacienteSpecialty relationship removed')
+            return res.status(200).json('Paciente-Specialty relationship removed')
         }
     } catch (error) {
         return res.status(500).send(error.message)

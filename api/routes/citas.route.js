@@ -10,13 +10,22 @@ const {
     removeConnectionCitaPac,
     removeConnectionCitaClinica,
     removeConnectionCitaSpecialty,
-    addCitasDoc
+    //addCitasDoc,
+    getCitaSpecialty,
+    getCitaClinica,
+    getCitaPaciente,
+    getCitaDoc
 } = require('../controllers/citas.controller'); 
 
 router.get('/', getCitas)
 router.get('/:id', getOneCita)
+router.get('/specialty/:specialtyId', getCitaSpecialty)
+router.get('/clinica/:clinicaId', getCitaClinica)
+router.get('/paciente/:pacienteId', getCitaPaciente)
+router.get('/doctor/:doctorId', getCitaDoc)
 
 router.post('/', createCita)
+
 
 router.put('/:id', updateCita)
 
