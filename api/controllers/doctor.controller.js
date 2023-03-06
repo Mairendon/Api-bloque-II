@@ -88,11 +88,11 @@ async function deleteDoctor(req, res) {
 
 async function removeConnectionDocClinica(req, res) {
     try {
-        const clinica = Clinica.findByPk(req.params.clinicaId);
-        const doctor = Doctor.findByPk(req.params.doctorId);
+        const clinica = await Clinica.findByPk(req.params.clinicaId);
+        const doctor = await Doctor.findByPk(req.params.doctorId);
 
-        await doctor.removeClinica(clinica)
         if (doctor) {
+            await doctor.removeClinica(clinica)
             return res.status(200).json('Doctor-Clinica relationship removed');
         } else {
             return res.status(404).send('Doctor not found');

@@ -84,11 +84,11 @@ async function deletePago(req, res) {
 
 async function removeConnectionPagoClinica(req, res) {
     try {
-        const clinica = Clinica.findByPk(req.params.clinicaId);
-        const pago = Pago.findByPk(req.params.pagoId);
+        const clinica = await Clinica.findByPk(req.params.clinicaId);
+        const pago = await Pago.findByPk(req.params.pagoId);
 
-        await pago.removeClinica(clinica)
         if (pago) {
+            await pago.removeClinica(clinica)
             return res.status(200).json('Pago-Clinica relationship removed');
         } else {
             return res.status(404).send('Pago-Clinica not found');
@@ -100,11 +100,11 @@ async function removeConnectionPagoClinica(req, res) {
 
 async function removeConnectionPagoPaciente(req, res) {
     try {
-        const paciente = Paciente.findByPk(req.params.pacienteId);
-        const pago = Pago.findByPk(req.params.pagoId);
+        const paciente = await Paciente.findByPk(req.params.pacienteId);
+        const pago = await Pago.findByPk(req.params.pagoId);
 
-        await pago.removePaciente(paciente)
         if (pago) {
+            await pago.removePaciente(paciente)
             return res.status(200).json('Pago-Paciente relationship removed');
         } else {
             return res.status(404).send('Pago-Paciente not found');
@@ -116,11 +116,11 @@ async function removeConnectionPagoPaciente(req, res) {
 
 async function removeConnectionPagoSpecialty(req, res) {
     try {
-        const specialty = Specialty.findByPk(req.params.specialtyId);
-        const pago = Pago.findByPk(req.params.pagoId);
+        const specialty = await Specialty.findByPk(req.params.specialtyId);
+        const pago = await Pago.findByPk(req.params.pagoId);
 
-        await pago.removeSpecialty(specialty)
         if (pago) {
+            await pago.removeSpecialty(specialty)
             return res.status(200).json('Pago-Specialty relationship removed');
         } else {
             return res.status(404).send('Pago-Specialty not found');

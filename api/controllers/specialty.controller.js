@@ -85,11 +85,11 @@ async function deleteSpecialty(req, res) {
 
 async function removeConnectionSpecialtyDoc(req, res) {
     try {
-        const doctor = Doctor.findByPk(req.params.doctorId);
-        const specialty = Specialty.findByPk(req.params.specialtyId);
+        const doctor = await Doctor.findByPk(req.params.doctorId);
+        const specialty = await Specialty.findByPk(req.params.specialtyId);
 
-        await specialty.removeDoctor(doctor)
         if (specialty) {
+            await specialty.removeDoctor(doctor)
             return res.status(200).json('Specialty-Doctor relationship removed');
         } else {
             return res.status(404).send('Specialty-Doctor not found');
@@ -101,11 +101,11 @@ async function removeConnectionSpecialtyDoc(req, res) {
 
 async function removeConnectionSpecialtyPaciente(req, res) {
     try {
-        const paciente = Paciente.findByPk(req.params.pacienteId);
-        const specialty = Specialty.findByPk(req.params.specialtyId);
+        const paciente = await Paciente.findByPk(req.params.pacienteId);
+        const specialty = await Specialty.findByPk(req.params.specialtyId);
 
-        await specialty.removePaciente(paciente)
         if (specialty) {
+            await specialty.removePaciente(paciente)
             return res.status(200).json('Specialty-Paciente relationship removed');
         } else {
             return res.status(404).send('Specialty-Paciente not found');
