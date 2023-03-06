@@ -5,7 +5,10 @@ const {
     getOnePago,
     createPago,
     updatePago,
-    deletePago
+    deletePago,
+    removeConnectionPagoClinica,
+    removeConnectionPagoPaciente,
+    removeConnectionPagoSpecialty
 } = require('../controllers/pagoP.controller')
 
 router.get('/', getPagos)
@@ -15,5 +18,9 @@ router.post('/', createPago)
 router.put('/:id', updatePago)
 
 router.delete('/:id', deletePago)
+
+router.delete('/:pagoPId/clinica/:clinicaId', removeConnectionPagoClinica);
+router.delete('/:pagoPId/paciente/:pacienteId', removeConnectionPagoPaciente);
+router.delete('/:pagoPId/specialty/:specialtyId', removeConnectionPagoSpecialty);
 
 module.exports = router

@@ -5,7 +5,8 @@ const {
     getOneDoctor,
     createDoctor,
     updateDoctor,
-    deleteDoctor
+    deleteDoctor,
+    removeConnectionDocClinica
 } = require('../controllers/doctor.controller');
 
 router.get('/', getDoctors);
@@ -15,6 +16,8 @@ router.post('/', createDoctor);
 router.put('/:id', updateDoctor);
 
 router.delete('/:id', deleteDoctor);
+
+router.delete('/:doctorId/clinica/:clinicaId', removeConnectionDocClinica);
 
 module.exports = router;
 

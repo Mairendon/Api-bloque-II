@@ -5,7 +5,9 @@ const {
     getOneSpecialty,
     createSpecialty,
     updateSpecialty,
-    deleteSpecialty
+    deleteSpecialty,
+    removeConnectionSpecialtyDoc,
+    removeConnectionSpecialtyPaciente
 } = require('../controllers/specialty.controller');
 
 router.get('/', getSpecialtys)
@@ -15,5 +17,8 @@ router.post('/', createSpecialty)
 router.put('/:id', updateSpecialty)
 
 router.delete('/:id', deleteSpecialty)
+
+router.delete('/:specialtyId/doctor/:doctorId', removeConnectionSpecialtyDoc);
+router.delete('/:specialtyId/paciente/:pacienteId', removeConnectionSpecialtyPaciente);
 
 module.exports = router
