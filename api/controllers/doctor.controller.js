@@ -4,6 +4,7 @@ const Clinica = require('../models/clinica.model');
 module.exports = {
     getDoctors,
     getOneDoctor,
+    getDocClinica,
     createDoctor,
     updateDoctor,
     deleteDoctor,
@@ -33,6 +34,21 @@ async function getOneDoctor(req, res) {
             return res.status(200).json(doctor)
         } else {
             return res.status(404).send('Doctor not found')
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+};
+
+async function getDocClinica(req, res) {
+    try {
+        const clinica = await Clinica.findByPk(req.params.clinicaId, {
+            include: [{ model: Doctor, attributes: [ "id", "name", "lastName", "phone" ] }]
+        })
+        if (!clinica) {
+            return res.status(404).send('Doctor not found')
+        } else {
+            return res.status(200).json(clinica)
         }
     } catch (error) {
         res.status(500).send(error.message)

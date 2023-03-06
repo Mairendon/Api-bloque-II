@@ -5,6 +5,8 @@ const Paciente = require('../models/paciente.model');
 module.exports = {
     getSpecialtys,
     getOneSpecialty,
+    getSpecialtyDoc,
+    getSpecialtyPaciente,
     createSpecialty,
     updateSpecialty,
     deleteSpecialty,
@@ -37,6 +39,36 @@ async function getOneSpecialty(req, res) {
             return res.status(404).send('Specialty not found')
         }
     } catch (error) {
+        res.status(500).send(error.message)
+    }
+};
+
+async function getSpecialtyDoc(req, res) {
+    try {
+        const doctor = await Doctor.findByPk(req.params.doctorId, {
+            include: [{ model: Specialty }]
+        })
+        if (!doctor) {
+            return res.status(404).send('Specialty not found')
+        } else {
+            return res.status(200).json(doctor)
+        }
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+};
+
+async function getSpecialtyPaciente(req, res) {
+    try {
+        const paciente = await Paciente.findByPk(req.params.pacienteId, {
+            include: [{ model: Specialty }]
+        })
+        if (!paciente) {
+            return res.status(404).send('Specialty not found')
+        } else {
+            return res.status(200).json(paciente)
+        }
+    } catch (error) { 
         res.status(500).send(error.message)
     }
 };

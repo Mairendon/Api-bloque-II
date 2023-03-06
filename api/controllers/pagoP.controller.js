@@ -6,6 +6,8 @@ const Specialty = require('../models/specialty.model');
 module.exports = {
     getPagos,
     getOnePago,
+    getPagoPaciente,
+    getPagoSpecialty,
     createPago,
     updatePago,
     deletePago,
@@ -42,12 +44,41 @@ async function getOnePago(req, res) {
         res.status(500).send(error.message)
     }
 }
+async function getPagoPaciente(req, res) {
+    try {
+        const paciente = await Paciente.findByPk(req.params.pacienteId, {
+            include: [{ model: Pago }]
+        })
+        if (!paciente) {
+            return res.status(404).send('Paciente not found')
+        } else {
+            return res.status(200).json(paciente)
+        }
+    } catch (error) {
+        return res.status(500).send(`Error retrieving paciente's pago: ${error.message}`)
+    }
+};
+
+async function getPagoSpecialty(req, res) {
+    try {
+        const specialty = await Specialty.findByPk(req.params.specialtyId, {
+            include: [{ model: Pago }]
+        })
+        if (!specialty) {
+            return res.status(404).send('Specialty not found')
+        } else {
+            return res.status(200).json(specialty)
+        }
+    } catch (error) {
+        return res.status(500).send(`Error retrieving specialty's pago: ${error.message}`)
+    }
+};
 
 async function createPago(req, res) {
     try {
         const pago = await Pago.create(req.body)
         return res.status(200).json({ message: 'Pago create', pago: pago })
-    }catch (error) {
+    } catch (error) {
         res.status(500).send(error.message)
     }
 }
@@ -59,7 +90,7 @@ async function updatePago(req, res) {
             where: { id: req.params.id }
         })
         if (pagoExist !== 0) {
-            return res.status(200).json({ message: 'Pago updated', pago: pago})
+            return res.status(200).json({ message: 'Pago updated', pago: pago })
         } else {
             return res.status(404).send('Pago not found')
         }
@@ -68,13 +99,13 @@ async function updatePago(req, res) {
     }
 }
 
-async function deletePago(req, res) { 
+async function deletePago(req, res) {
     try {
         const pago = await Pago.findOne({ where: { id: req.params.id } })
         if (pago) {
             await pago.destroy()
             return res.status(200).json('Pago deleted')
-        } else { 
+        } else {
             return res.status(404).send('Pago not found')
         }
     } catch (error) {
