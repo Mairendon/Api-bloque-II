@@ -1,25 +1,29 @@
 const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../database');
 
-const Doctor = sequelize.define (
+const Doctor = sequelize.define(
     'doctor',
     {
-        name:{
+        name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        lastName: {
+        dni: {
             type: DataTypes.STRING,
             allowNull: false,
         },
-        dni:{
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        phone:{
+        phone: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
+        role: {
+            type: DataTypes.ENUM('doctor', 'admin'),
+            defaultValue: 'doctor'
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
     },
     { timestamps: false }
 );

@@ -210,9 +210,13 @@ async function removeConnectionCitaSpecialty(req, res) {
         const specialty = await Specialty.findByPk(req.params.specialtyId);
         const cita = await Cita.findByPk(req.params.citaId);
 
-        if (!cita) {
-            return res.status(404).send('Citas not found')
+        if (!specialty) {
+            return res.status(404).send('Specialty not found')
+        }
 
+        if (!cita) {
+            return res.status(404).send('Cita not found')
+        
         } else {
             await specialty.removeCita(cita)
             return res.status(200).json('Specialty-Cita relationship remove')

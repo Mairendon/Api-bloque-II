@@ -14,7 +14,7 @@ const cors = require('cors');
 async function check() {
     await checkConnection();
     addRelations()
-    await syncModels('alter');
+    await syncModels();
 };
 
 function inicialieAndListenWithExpress() {

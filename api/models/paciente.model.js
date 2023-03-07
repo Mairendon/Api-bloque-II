@@ -8,10 +8,6 @@ const Paciente = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
         birthDate: {
             type: DataTypes.DATE,
             allowNull: true,
@@ -26,11 +22,11 @@ const Paciente = sequelize.define(
         },
         phone: {
             type: DataTypes.INTEGER,
-            allowNull: false,
+            allowNull: true,
         },
         address: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         mail: {
             type: DataTypes.STRING,
@@ -38,19 +34,23 @@ const Paciente = sequelize.define(
         },
         historialMedico: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         historialDental: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         tratamientosDone: {
             type: DataTypes.STRING,
-            allowNull: false,
-        },
-        nextAppointment: {
-            type: DataTypes.DATE,
             allowNull: true,
+        },
+        role: {
+            type: DataTypes.ENUM('paciente'),
+            defaultValue: 'paciente'
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
         }
     },
     { timestamps: false }
