@@ -10,7 +10,9 @@ const {
     removeConnectionDocClinica
 } = require('../controllers/doctor.controller');
 
-router.get('/', getDoctors);
+const { checkAuth, checkadmin } = require('../utils/index');
+
+router.get('/', checkAuth, checkadmin, getDoctors);
 router.get('/:id', getOneDoctor);
 router.get('/clinica/:clinicaId', getDocClinica);
 

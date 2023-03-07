@@ -15,7 +15,7 @@ async function getDoctors(req, res) {
     try {
         const doctor = await Doctor.findAll({
             where: req.query,
-            attributes: [ "id", "name", "lastName", "phone", "dni",]
+            attributes: [ "id", "name", "phone", "dni",]
         })
         if (doctor) {
             return res.status(200).json(doctor)
@@ -43,7 +43,7 @@ async function getOneDoctor(req, res) {
 async function getDocClinica(req, res) {
     try {
         const clinica = await Clinica.findByPk(req.params.clinicaId, {
-            include: [{ model: Doctor, attributes: [ "id", "name", "lastName", "phone" ] }]
+            include: [{ model: Doctor, attributes: [ "id", "name", "phone" ] }]
         })
         if (!clinica) {
             return res.status(404).send('Doctor not found')

@@ -23,7 +23,7 @@ async function getAllPatientes(req, res) {
     try {
         const paciente = await Paciente.findAll({
             where: req.query,
-            attributes: ["id", "name", "lastName", "phone", "dni"]
+            attributes: ["id", "name", "phone", "dni"]
         })
         if (paciente) {
             return res.status(200).json(paciente)
@@ -87,12 +87,12 @@ async function deletePaciente(req, res) {
     }
 };
 
-async function getPacDoc(req, res) { //JP non DJ
+async function getPacDoc(req, res) { 
     try {
         const doctor = await Doctor.findByPk(req.params.doctorId, {
             include: [{
                 model: Paciente,
-                attributes: ["name", "lastName", "id"]
+                attributes: ["name", "id"]
             }]
         })
         if (!doctor) {
@@ -109,7 +109,7 @@ async function getPacDoc(req, res) { //JP non DJ
 async function getPacClc(req, res) {
     try {
         const clinica = await Clinica.findByPk(req.params.clinicaId, {
-            include: [{ model: Paciente, attributes: ["name", "lastName", "id"] }]
+            include: [{ model: Paciente, attributes: ["name", "id"] }]
         })
         if (!clinica) {
             return res.status(404).send('Clinica not found')
@@ -125,7 +125,7 @@ async function getPacClc(req, res) {
 async function getPacSpecialty(req, res) {
     try {
         const specialty = await Specialty.findByPk(req.params.specialtyId, {
-            include: [{ model: Paciente, attributes: ["name", "lastName", "id"] }]
+            include: [{ model: Paciente, attributes: ["name", "id"] }]
         })
         if (!specialty) {
             return res.status(404).send('Specialty not found')
@@ -135,7 +135,7 @@ async function getPacSpecialty(req, res) {
     } catch (error) {
         return res.status(500).send(`Error retrieving doctor's patients: ${error.message}`)
     }
-}
+};
 
 async function removeConnectionPacienteDoc(req, res) {
     try {
