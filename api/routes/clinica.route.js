@@ -8,12 +8,13 @@ const {
     deleteClinica
 } = require('../controllers/clinica.controller')
 
-router.get('/', getClinicas)
-router.get('/:id', getOneClinica) //ver como se hace el comando de solicitar
+const { checkAuth } = require('../utils/index')
 
-router.post('/', createClinica)
-router.put('/:id', updateClinica)
+router.get('/', checkAuth, getClinicas)
+router.get('/:id', checkAuth, getOneClinica)
+router.post('/', checkAuth, createClinica)
+router.put('/:id', checkAuth, updateClinica)
 
-router.delete('/:id', deleteClinica)
+router.delete('/:id', checkAuth, deleteClinica)
 
 module.exports = router

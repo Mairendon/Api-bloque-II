@@ -28,14 +28,13 @@ function addRelations() {
 
         Specialty.hasMany(Cita)
         Cita.belongsTo(Specialty)
-        
+
+        Specialty.hasMany(Doctor)
+        Doctor.belongsTo(Specialty)
         //relation one to one
 
-        Clinica.hasOne(Pago)
+        Clinica.hasMany(Pago)
         Pago.belongsTo(Clinica)
-
-        Doctor.hasOne(Specialty)
-        Specialty.belongsTo(Doctor)
 
         Specialty.hasOne(Pago)
         Pago.belongsTo(Specialty)

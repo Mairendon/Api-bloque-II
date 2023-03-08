@@ -10,21 +10,24 @@ const {
     deletePago,
     removeConnectionPagoClinica,
     removeConnectionPagoPaciente,
-    removeConnectionPagoSpecialty
+    removeConnectionPagoSpecialty,
+    getPagosClinica
 } = require('../controllers/pagoP.controller')
 
-router.get('/', getPagos)
-router.get('/:id', getOnePago)
-router.get('/paciente/:pacienteId', getPagoPaciente)
-router.get('/specialty/:specialtyId', getPagoSpecialty)
+const { checkAuth } = require('../utils/index')
+router.get('/', checkAuth, getPagos)
+router.get('/:id', checkAuth, getOnePago)
+router.get('/paciente/:pacienteId', checkAuth, getPagoPaciente)
+router.get('/clinica/:clincaId', checkAuth, getPagosClinica)
+router.get('/specialty/:specialtyId', checkAuth, getPagoSpecialty)
 
-router.post('/', createPago)
+router.post('/', checkAuth, createPago)
 
-router.put('/:id', updatePago)
+router.put('/:id', checkAuth, updatePago)
 
-router.delete('/:id', deletePago)
-router.delete('/:pagoPId/clinica/:clinicaId', removeConnectionPagoClinica);
-router.delete('/:pagoPId/paciente/:pacienteId', removeConnectionPagoPaciente);
-router.delete('/:pagoPId/specialty/:specialtyId', removeConnectionPagoSpecialty);
+router.delete('/:id', checkAuth, deletePago)
+router.delete('/:pagoPId/clinica/:clinicaId', checkAuth, removeConnectionPagoClinica);
+router.delete('/:pagoPId/paciente/:pacienteId', checkAuth, removeConnectionPagoPaciente);
+router.delete('/:pagoPId/specialty/:specialtyId', checkAuth, removeConnectionPagoSpecialty);
 
 module.exports = router

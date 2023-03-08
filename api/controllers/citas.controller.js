@@ -110,6 +110,7 @@ async function getCitaClinica(req, res) {
         res.status(500).send(error.message)
     }
 }
+
 async function createCita(req, res) {
     try {
         const cita = await Cita.create(req.body)
@@ -156,14 +157,13 @@ async function removeConnectionCitaDoc(req, res) {
     try {
         const doctor = await Doctor.findByPk(req.params.doctorId);
         const cita = await Cita.findByPk(req.params.citaId);
-        // faltaba añadir el await delante de la variable
+        
         if (!cita) {
             return res.status(404).send('Citas not found')
         } else {
-            //await cita.removeDoctor(doctor)
+            
             await doctor.removeCita(cita)
-            // no hace falta llamar a las dos porque sólo hay info en una tabla
-            //eso es una sentencia lógica, sacar el paciente de la cita, de la otra manera no funciona porque las citas no estan en doctor.
+           
             return res.status(200).json('Doctor-Cita relationship remove')
         }
     } catch (error) {
@@ -226,19 +226,3 @@ async function removeConnectionCitaSpecialty(req, res) {
     }
 };
 
-//add citas cosas
-async function addCitasDoc(req, res) {
-    try {
-        const doctor = await Doctor.findByPk(req.params.doctorId);
-        const cita = await Cita.findByPk(req.params.citaId);
-
-        if (!cita) {
-            return res.status(404).send('Citas not found')
-        } else {
-            await doctor.addCita(cita)
-            return res.status(200).json({ message: 'Doctor Added', cita: cita, doctor: [doctor.name] })
-        }
-    } catch (error) {
-        return res.status(500).send(error.message)
-    }
-}

@@ -10,30 +10,30 @@ const {
     removeConnectionCitaPac,
     removeConnectionCitaClinica,
     removeConnectionCitaSpecialty,
-    //addCitasDoc,
     getCitaSpecialty,
     getCitaClinica,
     getCitaPaciente,
     getCitaDoc
-} = require('../controllers/citas.controller'); 
+} = require('../controllers/citas.controller');
 
-router.get('/', getCitas)
-router.get('/:id', getOneCita)
-router.get('/specialty/:specialtyId', getCitaSpecialty)
-router.get('/clinica/:clinicaId', getCitaClinica)
-router.get('/paciente/:pacienteId', getCitaPaciente)
-router.get('/doctor/:doctorId', getCitaDoc)
+const { checkAuth } = require('../utils/index');
 
-router.post('/', createCita)
+router.get('/', checkAuth, getCitas)
+router.get('/:id', checkAuth, getOneCita)
+router.get('/specialty/:specialtyId', checkAuth, getCitaSpecialty)
+router.get('/clinica/:clinicaId', checkAuth, getCitaClinica)
+router.get('/paciente/:pacienteId', checkAuth, getCitaPaciente)
+router.get('/doctor/:doctorId', checkAuth, getCitaDoc)
 
-router.put('/:id', updateCita)
+router.post('/', checkAuth, createCita)
 
-router.delete('/:id', deleteCita)
-//no hay que olvidadr añadir los dos puntos delante del :Id
-router.delete('/:citaId/doctor/:doctorId', removeConnectionCitaDoc)
-router.delete('/:citaId/paciente/:pacienteId', removeConnectionCitaPac)
-router.delete('/:citaId/clinica/:clinicaId', removeConnectionCitaClinica)
-router.delete('/:citaId/specialty/:specialtyId', removeConnectionCitaSpecialty)
+router.put('/:id', checkAuth, updateCita)
+
+router.delete('/:id', checkAuth, deleteCita)
+router.delete('/:citaId/doctor/:doctorId', checkAuth, removeConnectionCitaDoc)
+router.delete('/:citaId/paciente/:pacienteId', checkAuth, removeConnectionCitaPac)
+router.delete('/:citaId/clinica/:clinicaId', checkAuth, removeConnectionCitaClinica)
+router.delete('/:citaId/specialty/:specialtyId', checkAuth, removeConnectionCitaSpecialty)
 
 
 

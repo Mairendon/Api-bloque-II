@@ -5,12 +5,10 @@ const Paciente = require('../models/paciente.model');
 module.exports = {
     getSpecialtys,
     getOneSpecialty,
-    getSpecialtyDoc,
-    getSpecialtyPaciente,
+      getSpecialtyPaciente,
     createSpecialty,
     updateSpecialty,
     deleteSpecialty,
-    removeConnectionSpecialtyDoc,
     removeConnectionSpecialtyPaciente
 };
 
@@ -43,21 +41,6 @@ async function getOneSpecialty(req, res) {
     }
 };
 
-async function getSpecialtyDoc(req, res) {
-    try {
-        const doctor = await Doctor.findByPk(req.params.doctorId, {
-            include: [{ model: Specialty }]
-        })
-        if (!doctor) {
-            return res.status(404).send('Specialty not found')
-        } else {
-            return res.status(200).json(doctor)
-        }
-    } catch (error) {
-        res.status(500).send(error.message)
-    }
-};
-
 async function getSpecialtyPaciente(req, res) {
     try {
         const paciente = await Paciente.findByPk(req.params.pacienteId, {
@@ -68,7 +51,7 @@ async function getSpecialtyPaciente(req, res) {
         } else {
             return res.status(200).json(paciente)
         }
-    } catch (error) { 
+    } catch (error) {
         res.status(500).send(error.message)
     }
 };
@@ -115,22 +98,6 @@ async function deleteSpecialty(req, res) {
     }
 };
 
-async function removeConnectionSpecialtyDoc(req, res) {
-    try {
-        const doctor = await Doctor.findByPk(req.params.doctorId);
-        const specialty = await Specialty.findByPk(req.params.specialtyId);
-
-        if (specialty) {
-            await specialty.removeDoctor(doctor)
-            return res.status(200).json('Specialty-Doctor relationship removed');
-        } else {
-            return res.status(404).send('Specialty-Doctor not found');
-        }
-    } catch (error) {
-        return res.status(500).send(error.message);
-    }
-};
-
 async function removeConnectionSpecialtyPaciente(req, res) {
     try {
         const paciente = await Paciente.findByPk(req.params.pacienteId);
@@ -138,6 +105,8 @@ async function removeConnectionSpecialtyPaciente(req, res) {
 
         if (specialty) {
             await specialty.removePaciente(paciente)
+            await paciente.removeSpecialty(specialty)
+
             return res.status(200).json('Specialty-Paciente relationship removed');
         } else {
             return res.status(404).send('Specialty-Paciente not found');

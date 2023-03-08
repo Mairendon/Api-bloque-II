@@ -8,6 +8,7 @@ module.exports = {
     getOnePago,
     getPagoPaciente,
     getPagoSpecialty,
+    getPagosClinica,
     createPago,
     updatePago,
     deletePago,
@@ -74,6 +75,21 @@ async function getPagoSpecialty(req, res) {
     }
 };
 
+async function getPagosClinica(req, res) {
+    try {
+        const clinica = await Clinica.findByPk(req.params.clinicaId, {
+            include: [{ model: Pago }]
+        })
+        if (!clinica) {
+            return res.status(404).send('clinica not found')
+        } else {
+            return res.status(200).json(clinica)
+        }
+    } catch (error) {
+        return res.status(500).send(`Error retrieving clinica's pago: ${error.message}`)
+    }
+};
+
 async function createPago(req, res) {
     try {
         const pago = await Pago.create(req.body)
@@ -116,10 +132,10 @@ async function deletePago(req, res) {
 async function removeConnectionPagoClinica(req, res) {
     try {
         const clinica = await Clinica.findByPk(req.params.clinicaId);
-        const pago = await Pago.findByPk(req.params.pagoId);
+        const pago = await Pago.findByPk(req.params.pagoPId);
 
         if (pago) {
-            await pago.removeClinica(clinica)
+            await clinica.removePago(pago)
             return res.status(200).json('Pago-Clinica relationship removed');
         } else {
             return res.status(404).send('Pago-Clinica not found');
@@ -132,10 +148,10 @@ async function removeConnectionPagoClinica(req, res) {
 async function removeConnectionPagoPaciente(req, res) {
     try {
         const paciente = await Paciente.findByPk(req.params.pacienteId);
-        const pago = await Pago.findByPk(req.params.pagoId);
+        const pago = await Pago.findByPk(req.params.pagoPId);
 
         if (pago) {
-            await pago.removePaciente(paciente)
+            await paciente.removePago(pago)
             return res.status(200).json('Pago-Paciente relationship removed');
         } else {
             return res.status(404).send('Pago-Paciente not found');
@@ -148,10 +164,10 @@ async function removeConnectionPagoPaciente(req, res) {
 async function removeConnectionPagoSpecialty(req, res) {
     try {
         const specialty = await Specialty.findByPk(req.params.specialtyId);
-        const pago = await Pago.findByPk(req.params.pagoId);
+        const pago = await Pago.findByPk(req.params.pagoPId);
 
         if (pago) {
-            await pago.removeSpecialty(specialty)
+            await specialty.removePago(pago)
             return res.status(200).json('Pago-Specialty relationship removed');
         } else {
             return res.status(404).send('Pago-Specialty not found');

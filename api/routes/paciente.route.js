@@ -15,21 +15,22 @@ const {
     addConnectionPacienteSpecialty
 } = require('../controllers/paciente.controller')
 
+const { checkAuth } = require('../utils/index')
 
-router.get('/', getAllPatientes)
-router.get('/:id', getOnePaciente)
-router.get('/doctor/:doctorId', getPacDoc)
-router.get('/clinica/:clinicaId', getPacClc)
-router.get('/specialty/:specialtyId', getPacSpecialty)
+router.get('/', checkAuth, getAllPatientes)
+router.get('/:id', checkAuth, getOnePaciente)
+router.get('/doctor/:doctorId', checkAuth, getPacDoc)
+router.get('/clinica/:clinicaId', checkAuth, getPacClc)
+router.get('/specialty/:specialtyId', checkAuth, getPacSpecialty)
 
-router.post('/', createPaciente)
-router.post('/:pacienteId/specialty/:specialtyId', addConnectionPacienteSpecialty)
+router.post('/', checkAuth, createPaciente)
+router.post('/:pacienteId/specialty/:specialtyId', checkAuth, addConnectionPacienteSpecialty)
 
-router.put('/:id', updatePaciente)
+router.put('/:id', checkAuth, updatePaciente)
 
-router.delete('/:id', deletePaciente)
-router.delete('/:pacienteId/doctor/:doctorId', removeConnectionPacienteDoc)
-router.delete('/:pacienteId/clinica/:clinicaId', removeConnectionPacienteClinica)
-router.delete('/:pacienteId/specialty/:specialtyId', removeConnectionPacienteSpecialty)
+router.delete('/:id', checkAuth, deletePaciente)
+router.delete('/:pacienteId/doctor/:doctorId', checkAuth, removeConnectionPacienteDoc)
+router.delete('/:pacienteId/clinica/:clinicaId', checkAuth, removeConnectionPacienteClinica)
+router.delete('/:pacienteId/specialty/:specialtyId', checkAuth, removeConnectionPacienteSpecialty)
 
 module.exports = router

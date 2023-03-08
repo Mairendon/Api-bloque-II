@@ -1,27 +1,28 @@
 const router = require('express').Router();
 
-const { 
+const {
     getDoctors,
     getOneDoctor,
     getDocClinica,
-    createDoctor,
     updateDoctor,
     deleteDoctor,
-    removeConnectionDocClinica
+    removeConnectionDocClinica,
+    removeConnectionDocSpecialty,
+    getDocSpecialty
 } = require('../controllers/doctor.controller');
 
 const { checkAuth, checkadmin } = require('../utils/index');
 
 router.get('/', checkAuth, checkadmin, getDoctors);
-router.get('/:id', getOneDoctor);
-router.get('/clinica/:clinicaId', getDocClinica);
+router.get('/:id', checkAuth, getOneDoctor);
+router.get('/clinica/:clinicaId', checkAuth, getDocClinica);
+router.get('/specialty/:specialtyId', checkAuth, getDocSpecialty);
 
-router.post('/', createDoctor);
+router.put('/:id', checkAuth, updateDoctor);
 
-router.put('/:id', updateDoctor);
-
-router.delete('/:id', deleteDoctor);
-router.delete('/:doctorId/clinica/:clinicaId', removeConnectionDocClinica);
+router.delete('/:id', checkAuth, deleteDoctor);
+router.delete('/:doctorId/clinica/:clinicaId', checkAuth, removeConnectionDocClinica);
+router.delete('/:doctorId/specialty/:specialtyId', checkAuth, removeConnectionDocSpecialty);
 
 module.exports = router;
 

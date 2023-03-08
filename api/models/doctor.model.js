@@ -17,8 +17,17 @@ const Doctor = sequelize.define(
             allowNull: true,
         },
         role: {
-            type: DataTypes.ENUM('doctor', 'admin'),
-            defaultValue: 'doctor'
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 'doctor',
+            validate: {
+              customValidator: (value) => {
+                const enums = ['doctor', 'admin']
+                if (!enums.includes(value)) {
+                  throw new Error('not a valid option')
+                }
+              }
+            }
         },
         password: {
             type: DataTypes.STRING,

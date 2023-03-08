@@ -48,10 +48,7 @@ const Paciente = sequelize.define(
             type: DataTypes.ENUM('paciente'),
             defaultValue: 'paciente'
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        }
+       
     },
     { timestamps: false }
 )
