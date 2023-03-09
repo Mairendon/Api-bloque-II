@@ -16,7 +16,7 @@ const {
     getCitaDoc
 } = require('../controllers/citas.controller');
 
-const { checkAuth } = require('../utils/index');
+const { checkAuth, checkadmin } = require('../utils/index');
 
 router.get('/', checkAuth, getCitas)
 router.get('/:id', checkAuth, getOneCita)
@@ -25,15 +25,15 @@ router.get('/clinica/:clinicaId', checkAuth, getCitaClinica)
 router.get('/paciente/:pacienteId', checkAuth, getCitaPaciente)
 router.get('/doctor/:doctorId', checkAuth, getCitaDoc)
 
-router.post('/', checkAuth, createCita)
+router.post('/', checkAuth, checkadmin, createCita)
 
-router.put('/:id', checkAuth, updateCita)
+router.put('/:id', checkAuth, checkadmin, updateCita)
 
-router.delete('/:id', checkAuth, deleteCita)
-router.delete('/:citaId/doctor/:doctorId', checkAuth, removeConnectionCitaDoc)
-router.delete('/:citaId/paciente/:pacienteId', checkAuth, removeConnectionCitaPac)
-router.delete('/:citaId/clinica/:clinicaId', checkAuth, removeConnectionCitaClinica)
-router.delete('/:citaId/specialty/:specialtyId', checkAuth, removeConnectionCitaSpecialty)
+router.delete('/:id', checkAuth, checkadmin, deleteCita)
+router.delete('/:citaId/doctor/:doctorId', checkAuth, checkadmin, removeConnectionCitaDoc)
+router.delete('/:citaId/paciente/:pacienteId', checkAuth, checkadmin, removeConnectionCitaPac)
+router.delete('/:citaId/clinica/:clinicaId', checkAuth, checkadmin, removeConnectionCitaClinica)
+router.delete('/:citaId/specialty/:specialtyId', checkAuth, checkadmin, removeConnectionCitaSpecialty)
 
 
 

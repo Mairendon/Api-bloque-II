@@ -8,13 +8,13 @@ const {
     deleteClinica
 } = require('../controllers/clinica.controller')
 
-const { checkAuth } = require('../utils/index')
+const { checkAuth, checkadmin } = require('../utils/index')
 
 router.get('/', checkAuth, getClinicas)
 router.get('/:id', checkAuth, getOneClinica)
-router.post('/', checkAuth, createClinica)
-router.put('/:id', checkAuth, updateClinica)
+router.post('/', checkAuth, checkadmin, createClinica)
+router.put('/:id', checkAuth, checkadmin, updateClinica)
 
-router.delete('/:id', checkAuth, deleteClinica)
+router.delete('/:id', checkAuth, checkadmin, deleteClinica)
 
 module.exports = router

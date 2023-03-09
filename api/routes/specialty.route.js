@@ -10,17 +10,17 @@ const {
     removeConnectionSpecialtyPaciente
 } = require('../controllers/specialty.controller');
 
-const { checkAuth } = require('../utils/index')
+const { checkAuth, checkadmin } = require('../utils/index')
 
 router.get('/', checkAuth, getSpecialtys);
 router.get('/:id', checkAuth, getOneSpecialty);
 router.get('/paciente/:pacienteId', checkAuth, getSpecialtyPaciente);
 
-router.post('/', checkAuth, createSpecialty);
+router.post('/', checkAuth, checkadmin, createSpecialty);
 
-router.put('/:id', checkAuth, updateSpecialty);
+router.put('/:id', checkAuth,checkadmin, updateSpecialty);
 
-router.delete('/:id', checkAuth, deleteSpecialty)
-router.delete('/:specialtyId/paciente/:pacienteId', checkAuth, removeConnectionSpecialtyPaciente);
+router.delete('/:id', checkAuth, checkadmin,deleteSpecialty)
+router.delete('/:specialtyId/paciente/:pacienteId', checkAuth, checkadmin,removeConnectionSpecialtyPaciente);
 
 module.exports = router
